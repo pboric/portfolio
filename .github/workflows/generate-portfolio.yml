@@ -3,11 +3,11 @@ name: Generate Portfolio
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 1' # Runs every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
 
 permissions:
   contents: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,6 +30,6 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add ./portfolio.md
+          git add ./index.md
           git commit -m "Update portfolio page [auto]" || echo "No changes to commit"
           git push
