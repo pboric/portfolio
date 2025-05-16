@@ -16,25 +16,42 @@ def get_repos(username):
             break
         repos.extend(data)
         page += 1
+    # Filter out forks and sort by stars (descending)
+    repos = [r for r in repos if not r.get("fork")]
+    repos.sort(key=lambda r: r["stargazers_count"], reverse=True)
     return repos
 
 def make_portfolio_md(username, repos):
     lines = []
-    lines.append(f"# {username}'s Portfolio\n")
+    lines.append(f"# {username}’s Portfolio\n")
     lines.append(f"Generated automatically by [GitHub Actions](https://github.com/features/actions).\n")
     lines.append("## Projects\n")
+
+    # Table of Contents
+    lines.append("### Table of Contents")
     for repo in repos:
-        if repo.get("fork"):
-            continue  # Skip forks
         name = repo["name"]
-        desc = repo["description"] or "No description."
+        lines.append(f"- [{name}](#{name.lower().replace(' ', '-')})")
+    lines.append("\n---\n")
+
+    # Project Details
+    for repo in repos:
+        name = repo["name"]
+        desc = repo["description"] or "_No description provided._"
         url = repo["html_url"]
         homepage = repo.get("homepage")
-        lines.append(f"### [{name}]({url})")
+        stars = repo["stargazers_count"]
+        forks = repo["forks_count"]
+        language = repo.get("language") or "Unknown"
+
+        lines.append(f"### <a name=\"{name.lower().replace(' ', '-')}\"></a>[{name}]({url})")
+        lines.append(f"**Language:** {language}")
         lines.append(f"{desc}")
         if homepage:
-            lines.append(f"[Live Demo]({homepage})")
-        lines.append(f"- ⭐ Stars: {repo['stargazers_count']} | 🍴 Forks: {repo['forks_count']}\n")
+            lines.append(f"**[Live Demo]({homepage})**")
+        # Live badges for stars and forks
+        lines.append(f"![Stars](https://img.shields.io/github/stars/{username}/{name}?style=social) ![Forks](https://img.shields.io/github/forks/{username}/{name}?style=social)\n")
+        lines.append('---\n')
     return "\n".join(lines)
 
 if __name__ == "__main__":
