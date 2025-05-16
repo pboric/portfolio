@@ -44,6 +44,6 @@ if __name__ == "__main__":
     username = sys.argv[1]
     repos = get_repos(username)
     md = make_portfolio_md(username, repos)
-    with open("portfolio.md", "w", encoding="utf-8") as f:
+    with open("index.md", "w", encoding="utf-8") as f:
         f.write(md)
-    print("Portfolio generated as portfolio.md")
+    print("Portfolio generated as index.md")
