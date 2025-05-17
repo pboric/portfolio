@@ -1,5 +1,5 @@
 
-# Petar Krešimir Borić’s Portfolio
+# Petar Krešimir Borić
 
 [![Email](https://img.shields.io/badge/email-kresimirepet@gmail.com-blue?style=flat-square&logo=gmail)](mailto:kresimirepet@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-petarkboric-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/petarkboric)
