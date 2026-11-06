@@ -6,7 +6,7 @@ This repository automatically generates a portfolio page from my public GitHub r
 
 - The workflow runs every Monday (or on manual trigger).
 - It uses a Python script to fetch your public repositories.
-- It generates a `portfolio.md` with your projects.
+- It generates `index.md` (CV + project list), which GitHub Pages publishes.
 - Commit and push changes automatically.
 
 ## How to use

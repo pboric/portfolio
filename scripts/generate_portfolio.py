@@ -4,9 +4,9 @@ import requests
 HEADER = """
 # Petar Krešimir Borić
 
-[![Email](https://img.shields.io/badge/email-kresimirepet@gmail.com-blue?style=flat-square&logo=gmail)](mailto:kresimirepet@gmail.com)
+[![Email](https://img.shields.io/badge/email-kresimirpet@gmail.com-blue?style=flat-square&logo=gmail)](mailto:kresimirpet@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-petarkboric-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/petarkboric)
-[![GitHub](https://img.shields.io/badge/GitHub-petarkresimirboric-black?style=flat-square&logo=github)](https://github.com/petarkresimirboric)
+[![GitHub](https://img.shields.io/badge/GitHub-pboric-black?style=flat-square&logo=github)](https://github.com/pboric)
 
 *Data Scientist · AI Developer · Environmental Engineer*
 
@@ -14,7 +14,7 @@ HEADER = """
 
 ## Professional Summary
 
-Versatile Data Scientist with a background in environmental engineering and experience delivering machine learning and NLP solutions. Skilled in Python, BERT, RAG, and AI fairness. Strong in building end-to-end pipelines for real-world datasets.
+Versatile Data Scientist with a background in environmental engineering and experience delivering machine learning and NLP solutions. Skilled in Python, BERT, RAG, and AI fairness. Strong in building end-to-end pipelines for real-world datasets. Currently working on air-quality data analysis and instrument calibration at IMI in Zagreb.
 
 ---
 
@@ -32,11 +32,14 @@ Versatile Data Scientist with a background in environmental engineering and expe
 
 ## Experience
 
+**2026–present – Research Assistant, Institute for Medical Research and Occupational Health (IMI), Zagreb, Croatia**
+• Air-quality data analysis and instrument calibration, Environmental Hygiene Unit
+
 **2023–2024 – WWTP Manager, Riko d.o.o., Zagreb, Croatia**  
 • Developed Python tools for wastewater optimization and metrics tracking  
 • Led predictive modeling and promoted digital workflows  
 
-**2023 – Sensor Applications Intern, OxyIe, Zurich, Switzerland**  
+**2023 – Sensor Applications Intern, Oxyle, Zurich, Switzerland**  
 • Analyzed sensory data for water quality using ML  
 • Automated scraping/API pipelines for data ingestion  
 
@@ -80,7 +83,7 @@ def get_repos(username):
     page = 1
     while True:
         url = f"https://api.github.com/users/{username}/repos"
-        params = {'per_page': 100, 'page': page, 'sort': 'updated'}
+        params = {'per_page': 100, 'page': page, 'sort': 'created'}  # newest first
         response = requests.get(url, params=params)
         if response.status_code != 200:
             print("Failed to fetch repos:", response.text)
@@ -90,8 +93,9 @@ def get_repos(username):
             break
         repos.extend(data)
         page += 1
-    # Filter out forks and sort by stars (descending)
-    repos = [r for r in repos if not r.get("fork")]
+    # Filter out forks, this portfolio repo and the profile README repo; sort by stars (descending)
+    skip = {"portfolio", username.lower()}
+    repos = [r for r in repos if not r.get("fork") and r["name"].lower() not in skip]
     repos.sort(key=lambda r: r["stargazers_count"], reverse=True)
     return repos
 
@@ -113,18 +117,18 @@ def make_portfolio_md(username, repos):
         desc = repo["description"] or "_No description provided._"
         url = repo["html_url"]
         homepage = repo.get("homepage")
-        stars = repo["stargazers_count"]
-        forks = repo["forks_count"]
         language = repo.get("language") or "Unknown"
 
+        # Trailing double spaces keep each field on its own line in Markdown
         lines.append(f"### <a name=\"{name.lower().replace(' ', '-')}\"></a>[{name}]({url})")
-        lines.append(f"**Language:** {language}")
-        lines.append(f"{desc}")
+        lines.append(f"**Language:** {language}  ")
+        lines.append(f"{desc}  ")
         if homepage:
             lines.append(f"**[Live Demo]({homepage})**")
-        # Live badges for stars and forks
-        lines.append(f"![Stars](https://img.shields.io/github/stars/{username}/{name}?style=social) ![Forks](https://img.shields.io/github/forks/{username}/{name}?style=social)\n")
-        lines.append('---\n')
+        topics = repo.get("topics") or []
+        if topics:
+            lines.append("**Topics:** " + " · ".join(f"`{t}`" for t in topics))
+        lines.append('\n---\n')
     return "\n".join(lines)
 
 if __name__ == "__main__":
