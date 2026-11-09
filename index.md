@@ -137,7 +137,7 @@ Project developed to predict machine failures using sensor data through dimensio
 
 ### <a name="fake-news-detection"></a>[fake-news-detection](https://github.com/pboric/fake-news-detection)
 **Language:** Jupyter Notebook  
-A machine learning project that uses natural language processing and deep learning techniques to automatically classify news articles as real or fake. The project implements multiple models, from simple baselines to advanced BERT-based deep learning approaches.  
+Real vs. fake news classification on the ISOT dataset (TF-IDF models and BERT) after removing source shortcuts; shows that near-perfect accuracy mostly reflects source style, not truthfulness  
 **Topics:** `bert` · `deep-learning` · `nlp` · `python` · `pytorch-lightning` · `text-classification` · `transformers`
 
 ---
