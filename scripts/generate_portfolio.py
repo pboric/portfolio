@@ -14,15 +14,18 @@ HEADER = """
 
 ## Professional Summary
 
-Versatile Data Scientist with a background in environmental engineering and experience delivering machine learning and NLP solutions. Skilled in Python, BERT, RAG, and AI fairness. Strong in building end-to-end pipelines for real-world datasets. Currently working on air-quality data analysis and instrument calibration at IMI in Zagreb.
+Data scientist with a background in environmental engineering, now working on air-quality data analysis and instrument calibration at IMI in Zagreb. My current project corrects low-cost particulate-matter sensors against official reference stations during Saharan dust episodes, using LightGBM and Copernicus CAMS data. Experienced in end-to-end machine learning on real-world data, from exploratory analysis and statistics to tuned and deployed models, including NLP and computer vision with PyTorch and Hugging Face.
 
 ---
 
 ## Technical Skills
 
 - **Programming:** Python, Jupyter, SQL, Git, PySpark, Databricks  
-- **ML & DL:** Classification (multi-label, multi-class), Transformers (BERT), multi-task learning, fairness mitigation  
-- **NLP:** Text classification, Q&A with RAG, fake/toxic comment detection  
+- **ML & DL:** Gradient boosting (LightGBM, XGBoost), hyperparameter tuning (Optuna), classification (multi-label, multi-class), Transformers (BERT, DistilBERT), multi-task learning, fairness mitigation  
+- **Environmental data:** Air-quality monitoring data (EEA), low-cost sensors, ERA5 weather and Copernicus CAMS data, sensor calibration  
+- **Statistics:** Hypothesis testing, confidence intervals, bootstrap, leakage-free cross-validation  
+- **NLP:** Text classification, Q&A with RAG, toxic comment detection  
+- **Data collection:** Web scraping and API pipelines (Selenium, requests)  
 - **Tools:** scikit-learn, pandas, NumPy, matplotlib, PyTorch, TensorFlow, Hugging Face  
 - **Data Science:** EDA, feature engineering, PCA, credit/risk prediction  
 - **BI & Viz:** Power BI, Looker, Dash  
@@ -56,16 +59,9 @@ Versatile Data Scientist with a background in environmental engineering and expe
 
 ---
 
-## Certifications & Projects
+## Certifications
 
-**Certifications:**  
 - Python (HackerRank), SQL Intermediate (HackerRank), Data Analysis (freeCodeCamp)
-
-**Highlighted Projects:**  
-- **Credit Risk:** LightGBM + PySpark pipeline  
-- **NLP:** BERT models for fake/toxic content  
-- **RAG Q&A:** Transformer-based retrieval + generation  
-- **Web Scraping:** Selenium/API automation  
 
 ---
 
@@ -99,20 +95,60 @@ def get_repos(username):
     repos.sort(key=lambda r: r["stargazers_count"], reverse=True)
     return repos
 
+# Featured projects, in this order, with a short summary and the main result.
+# Everything else is listed below them from the GitHub repo descriptions.
+FEATURED = [
+    ("pm-sensor-correction",
+     "Corrects low-cost PM sensors against official EEA reference stations during Saharan dust, smoke and humid air, "
+     "using weather data and Copernicus CAMS forecasts. Tested on areas the model never saw, a LightGBM model cuts the "
+     "PM10 error in dust episodes by 40% compared with the standard humidity correction."),
+    ("credit-risk-prediction",
+     "Credit default model on the Home Credit data: features from several linked tables, LightGBM and XGBoost tuned "
+     "with Optuna, stacking and threshold tuning (ROC AUC 0.79), deployed as a FastAPI service."),
+    ("age-gender-prediction",
+     "Multi-task deep learning model that predicts age and gender from face images, improved over three versions, "
+     "with bias analysis across age groups and gender (age error 4.3 years, gender accuracy 91%)."),
+    ("toxic-comment-classification",
+     "Multi-label toxic comment detection with DistilBERT, class weighting and tuned decision thresholds "
+     "(ROC AUC 0.99 per class)."),
+    ("spaceship-titanic-classification",
+     "Tabular classification end to end: statistical tests, feature engineering and a stacking ensemble "
+     "(ROC AUC 0.89, accuracy 80%)."),
+]
+
+
+def anchor(name):
+    return name.lower().replace(' ', '-')
+
+
 def make_portfolio_md(username, repos):
+    by_name = {r["name"]: r for r in repos}
+    featured = [(by_name[n], text) for n, text in FEATURED if n in by_name]
+    featured_names = {r["name"] for r, _ in featured}
+    others = [r for r in repos if r["name"] not in featured_names]
+
     lines = []
     lines.append(HEADER)
-    lines.append("## Projects\n")
+    lines.append("## Featured Projects\n")
+    for repo, text in featured:
+        lines.append(f"### <a name=\"{anchor(repo['name'])}\"></a>[{repo['name']}]({repo['html_url']})")
+        lines.append(f"{text}  ")
+        topics = repo.get("topics") or []
+        if topics:
+            lines.append("**Topics:** " + " · ".join(f"`{t}`" for t in topics))
+        lines.append("")
+    lines.append("---\n")
+    lines.append("## Other Projects\n")
 
     # Table of Contents
     lines.append("### Table of Contents")
-    for repo in repos:
+    for repo in others:
         name = repo["name"]
-        lines.append(f"- [{name}](#{name.lower().replace(' ', '-')})")
+        lines.append(f"- [{name}](#{anchor(name)})")
     lines.append("\n---\n")
 
     # Project Details
-    for repo in repos:
+    for repo in others:
         name = repo["name"]
         desc = repo["description"] or "_No description provided._"
         url = repo["html_url"]

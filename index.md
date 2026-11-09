@@ -11,15 +11,18 @@
 
 ## Professional Summary
 
-Versatile Data Scientist with a background in environmental engineering and experience delivering machine learning and NLP solutions. Skilled in Python, BERT, RAG, and AI fairness. Strong in building end-to-end pipelines for real-world datasets. Currently working on air-quality data analysis and instrument calibration at IMI in Zagreb.
+Data scientist with a background in environmental engineering, now working on air-quality data analysis and instrument calibration at IMI in Zagreb. My current project corrects low-cost particulate-matter sensors against official reference stations during Saharan dust episodes, using LightGBM and Copernicus CAMS data. Experienced in end-to-end machine learning on real-world data, from exploratory analysis and statistics to tuned and deployed models, including NLP and computer vision with PyTorch and Hugging Face.
 
 ---
 
 ## Technical Skills
 
 - **Programming:** Python, Jupyter, SQL, Git, PySpark, Databricks  
-- **ML & DL:** Classification (multi-label, multi-class), Transformers (BERT), multi-task learning, fairness mitigation  
-- **NLP:** Text classification, Q&A with RAG, fake/toxic comment detection  
+- **ML & DL:** Gradient boosting (LightGBM, XGBoost), hyperparameter tuning (Optuna), classification (multi-label, multi-class), Transformers (BERT, DistilBERT), multi-task learning, fairness mitigation  
+- **Environmental data:** Air-quality monitoring data (EEA), low-cost sensors, ERA5 weather and Copernicus CAMS data, sensor calibration  
+- **Statistics:** Hypothesis testing, confidence intervals, bootstrap, leakage-free cross-validation  
+- **NLP:** Text classification, Q&A with RAG, toxic comment detection  
+- **Data collection:** Web scraping and API pipelines (Selenium, requests)  
 - **Tools:** scikit-learn, pandas, NumPy, matplotlib, PyTorch, TensorFlow, Hugging Face  
 - **Data Science:** EDA, feature engineering, PCA, credit/risk prediction  
 - **BI & Viz:** Power BI, Looker, Dash  
@@ -53,16 +56,9 @@ Versatile Data Scientist with a background in environmental engineering and expe
 
 ---
 
-## Certifications & Projects
+## Certifications
 
-**Certifications:**  
 - Python (HackerRank), SQL Intermediate (HackerRank), Data Analysis (freeCodeCamp)
-
-**Highlighted Projects:**  
-- **Credit Risk:** LightGBM + PySpark pipeline  
-- **NLP:** BERT models for fake/toxic content  
-- **RAG Q&A:** Transformer-based retrieval + generation  
-- **Web Scraping:** Selenium/API automation  
 
 ---
 
@@ -74,18 +70,38 @@ Versatile Data Scientist with a background in environmental engineering and expe
 
 ---
 
-## Projects
+## Featured Projects
+
+### <a name="pm-sensor-correction"></a>[pm-sensor-correction](https://github.com/pboric/pm-sensor-correction)
+Corrects low-cost PM sensors against official EEA reference stations during Saharan dust, smoke and humid air, using weather data and Copernicus CAMS forecasts. Tested on areas the model never saw, a LightGBM model cuts the PM10 error in dust episodes by 40% compared with the standard humidity correction.  
+**Topics:** `air-quality` · `cams` · `copernicus` · `lightgbm` · `low-cost-sensors` · `particulate-matter` · `python` · `saharan-dust` · `sensor-calibration`
+
+### <a name="credit-risk-prediction"></a>[credit-risk-prediction](https://github.com/pboric/credit-risk-prediction)
+Credit default model on the Home Credit data: features from several linked tables, LightGBM and XGBoost tuned with Optuna, stacking and threshold tuning (ROC AUC 0.79), deployed as a FastAPI service.  
+**Topics:** `credit-risk` · `fastapi` · `lightgbm` · `machine-learning` · `optuna` · `python` · `xgboost`
+
+### <a name="age-gender-prediction"></a>[age-gender-prediction](https://github.com/pboric/age-gender-prediction)
+Multi-task deep learning model that predicts age and gender from face images, improved over three versions, with bias analysis across age groups and gender (age error 4.3 years, gender accuracy 91%).  
+**Topics:** `computer-vision` · `deep-learning` · `fairness` · `multi-task-learning` · `python` · `pytorch` · `utkface`
+
+### <a name="toxic-comment-classification"></a>[toxic-comment-classification](https://github.com/pboric/toxic-comment-classification)
+Multi-label toxic comment detection with DistilBERT, class weighting and tuned decision thresholds (ROC AUC 0.99 per class).  
+**Topics:** `deep-learning` · `distilbert` · `multi-label-classification` · `nlp` · `python` · `pytorch` · `transformers`
+
+### <a name="spaceship-titanic-classification"></a>[spaceship-titanic-classification](https://github.com/pboric/spaceship-titanic-classification)
+Tabular classification end to end: statistical tests, feature engineering and a stacking ensemble (ROC AUC 0.89, accuracy 80%).  
+**Topics:** `ensemble-learning` · `flask` · `kaggle` · `lightgbm` · `machine-learning` · `optuna` · `python` · `scikit-learn`
+
+---
+
+## Other Projects
 
 ### Table of Contents
 - [concert-tour-rag-assistant](#concert-tour-rag-assistant)
 - [Binary-Prediction-with-a-Rainfall-Dataset](#binary-prediction-with-a-rainfall-dataset)
 - [Machine-Failure-Prediction](#machine-failure-prediction)
 - [fake-news-detection](#fake-news-detection)
-- [age-gender-prediction](#age-gender-prediction)
-- [toxic-comment-classification](#toxic-comment-classification)
 - [mushroom-classification](#mushroom-classification)
-- [credit-risk-prediction](#credit-risk-prediction)
-- [spaceship-titanic-classification](#spaceship-titanic-classification)
 - [stroke-prediction](#stroke-prediction)
 - [travel-insurance-prediction](#travel-insurance-prediction)
 - [red-wine-quality-analysis](#red-wine-quality-analysis)
@@ -126,20 +142,6 @@ A machine learning project that uses natural language processing and deep learni
 
 ---
 
-### <a name="age-gender-prediction"></a>[age-gender-prediction](https://github.com/pboric/age-gender-prediction)
-**Language:** Jupyter Notebook  
-Multi-task deep learning model for simultaneously predicting age and gender from facial images, with a focus on bias mitigation and ethical considerations. The project implements progressively improved versions (v0, v1, v2) with enhanced architectures and bias mitigation strategies.  
-**Topics:** `computer-vision` · `deep-learning` · `fairness` · `multi-task-learning` · `python` · `pytorch` · `utkface`
-
----
-
-### <a name="toxic-comment-classification"></a>[toxic-comment-classification](https://github.com/pboric/toxic-comment-classification)
-**Language:** Jupyter Notebook  
-This project implements a multi-label classifier to identify toxic comments in online forums using transformer-based models.  
-**Topics:** `deep-learning` · `distilbert` · `multi-label-classification` · `nlp` · `python` · `pytorch` · `transformers`
-
----
-
 ### <a name="mushroom-classification"></a>[mushroom-classification](https://github.com/pboric/mushroom-classification)
 **Language:** Jupyter Notebook  
 This project focuses on building an improved machine learning model for mushroom classification.  
@@ -147,23 +149,9 @@ This project focuses on building an improved machine learning model for mushroom
 
 ---
 
-### <a name="credit-risk-prediction"></a>[credit-risk-prediction](https://github.com/pboric/credit-risk-prediction)
-**Language:** Jupyter Notebook  
-This project is focused on building a machine learning model for credit risk prediction. The project involves extensive data analysis, feature engineering, and model deployment. It provides a structured approach to processing large datasets, training multiple models, and deploying the best performing one.  
-**Topics:** `credit-risk` · `fastapi` · `lightgbm` · `machine-learning` · `optuna` · `python` · `xgboost`
-
----
-
-### <a name="spaceship-titanic-classification"></a>[spaceship-titanic-classification](https://github.com/pboric/spaceship-titanic-classification)
-**Language:** Jupyter Notebook  
-This project is centered around predicting whether passengers aboard the Spaceship Titanic were transported to an alternate dimension following an encounter with a spacetime anomaly. The prediction is a binary classification problem where the target variable is whether a passenger was transported or not.  
-**Topics:** `ensemble-learning` · `flask` · `kaggle` · `lightgbm` · `machine-learning` · `optuna` · `python` · `scikit-learn`
-
----
-
 ### <a name="stroke-prediction"></a>[stroke-prediction](https://github.com/pboric/stroke-prediction)
 **Language:** Jupyter Notebook  
-This project aims to predict the occurrence of strokes using various machine learning models. The analysis includes exploratory data analysis (EDA), statistical inference, and model application.  
+Stroke risk prediction on an imbalanced dataset (1:19): EDA, chi-square tests and leakage-free resampling inside the training pipeline; logistic regression ROC AUC 0.84 on a held-out test set  
 **Topics:** `classification` · `healthcare` · `machine-learning` · `python` · `scikit-learn` · `xgboost`
 
 ---
